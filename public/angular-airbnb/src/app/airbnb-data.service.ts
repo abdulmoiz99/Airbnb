@@ -11,8 +11,12 @@ export class AirbnbDataService {
   constructor(private _httpClient: HttpClient) { }
 
   baseUrl: String = "http://localhost:3000/api/airbnb"
-  public getAll(limit: number, offset: number): Observable<AirbnbResponse> {
-    return this._httpClient.get<AirbnbResponse>(`${this.baseUrl}?limit=${limit}&offset=${offset}`)
+  public getAll(limit: number, offset: number, recordStartsWith: String): Observable<AirbnbResponse> {
+    let url = `${this.baseUrl}?limit=${limit}&offset=${offset}`
+    if (recordStartsWith && recordStartsWith !== "") {
+      url += `&startsWith=${recordStartsWith}`
+    }
+    return this._httpClient.get<AirbnbResponse>(url)
   }
 
 

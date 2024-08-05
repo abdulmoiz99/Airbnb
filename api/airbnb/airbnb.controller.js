@@ -51,9 +51,14 @@ const getAll = function (req, res) {
             airbnb: ""
         }
     }
+    let query = {}
 
+    if (req.query && req.query.startsWith && req.query.startsWith !== "") {
+        const regex = new RegExp(`^${req.query.startsWith}`, 'i');
+        query = { name: { $regex: regex } };
+    }
     _getAllValidation(req)
-        .then(({ offset, limit }) => { return Airbnb.find().skip(offset).limit(limit).exec() })
+        .then(({ offset, limit }) => { return Airbnb.find(query).skip(offset).limit(limit).exec() })
         .catch(error => _setResponseToBadRequest(_response, error))
         .then(airbnb => {
             _response.data.airbnb = airbnb

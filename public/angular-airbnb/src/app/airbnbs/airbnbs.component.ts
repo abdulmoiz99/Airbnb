@@ -47,6 +47,7 @@ export class AirbnbsComponent implements OnInit {
   offset: number = 0;
   isPreviousDisable: boolean = false;
   isNextDisable: boolean = false;
+  recordStartsWith!: String;
 
   constructor(private _service: AirbnbDataService) { }
 
@@ -55,11 +56,11 @@ export class AirbnbsComponent implements OnInit {
   }
 
   private getData() {
-    this._service.getAll(this.limit, this.offset).subscribe(airbnb => {
+    this._service.getAll(this.limit, this.offset, this.recordStartsWith).subscribe(airbnb => {
       this.airbnbResponse = airbnb;
     })
   }
-  private updatePage(){
+  private updatePage() {
     this.getData();
     this.updateButton();
   }
@@ -67,7 +68,7 @@ export class AirbnbsComponent implements OnInit {
     this.limit = event.target.value;
     this.getData();
   }
-  private updateButton(){
+  private updateButton() {
     this.isPreviousDisable = this.offset == 0
     this.isNextDisable = this.airbnbResponse.totalCount < this.offset + this.limit
   }
@@ -82,6 +83,10 @@ export class AirbnbsComponent implements OnInit {
       this.offset += this.limit;
       this.updatePage();
     }
-
   }
+  public updateRecordStartWith(event: any) {
+    this.recordStartsWith = event.target.value;
+    this.updatePage()
+  }
+
 }

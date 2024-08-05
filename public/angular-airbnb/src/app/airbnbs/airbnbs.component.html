@@ -5,6 +5,14 @@ Number of record to display
     <option value="10">10</option>
     <option value="50">50</option>
 </select>
+<br />
+Record starts with
+<select (click)=updateRecordStartWith($event)>
+    <option value="">ALL</option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+</select>
 <ul>
     <li *ngFor="let airbnb of airbnbResponse.airbnb">
         <!-- Name - Price - Country -->
