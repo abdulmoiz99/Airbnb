@@ -11,8 +11,8 @@ export class AirbnbDataService {
   constructor(private _httpClient: HttpClient) { }
 
   baseUrl: String = "http://localhost:3000/api/airbnb"
-  public getAll(): Observable<AirbnbResponse> {
-    return this._httpClient.get<AirbnbResponse>("http://localhost:3000/api/airbnb")
+  public getAll(limit: number, offset: number): Observable<AirbnbResponse> {
+    return this._httpClient.get<AirbnbResponse>(`${this.baseUrl}?limit=${limit}&offset=${offset}`)
   }
 
 

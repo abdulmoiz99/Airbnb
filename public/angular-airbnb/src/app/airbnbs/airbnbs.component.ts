@@ -43,13 +43,45 @@ class Address {
 export class AirbnbsComponent implements OnInit {
 
   airbnbResponse!: AirbnbResponse;
+  limit: number = 5;
+  offset: number = 0;
+  isPreviousDisable: boolean = false;
+  isNextDisable: boolean = false;
 
   constructor(private _service: AirbnbDataService) { }
 
   ngOnInit(): void {
-    this._service.getAll().subscribe(airbnb => {
+    this.updatePage();
+  }
+
+  private getData() {
+    this._service.getAll(this.limit, this.offset).subscribe(airbnb => {
       this.airbnbResponse = airbnb;
     })
   }
+  private updatePage(){
+    this.getData();
+    this.updateButton();
+  }
+  public updateRecordLimit(event: any) {
+    this.limit = event.target.value;
+    this.getData();
+  }
+  private updateButton(){
+    this.isPreviousDisable = this.offset == 0
+    this.isNextDisable = this.airbnbResponse.totalCount < this.offset + this.limit
+  }
+  public onPreviousClick() {
+    if (!this.isPreviousDisable) {
+      this.offset -= this.limit;
+      this.updatePage();
+    }
+  }
+  public onNextClick() {
+    if (!this.isNextDisable) {
+      this.offset += this.limit;
+      this.updatePage();
+    }
 
+  }
 }

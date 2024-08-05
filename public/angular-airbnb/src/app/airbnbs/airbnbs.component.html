@@ -1,4 +1,10 @@
 <h1>List of Airbnb</h1>
+Number of record to display
+<select (click)=updateRecordLimit($event)>
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="50">50</option>
+</select>
 <ul>
     <li *ngFor="let airbnb of airbnbResponse.airbnb">
         <!-- Name - Price - Country -->
@@ -7,3 +13,5 @@
         </a>
     </li>
 </ul>
+<button [disabled]=isPreviousDisable (click)="onPreviousClick()">Previous</button> {{' '}}
+<button [disabled]=isNextDisable (click)="onNextClick()">Next</button>
