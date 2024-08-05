@@ -16,3 +16,9 @@ if (req.query.lat && req.query.lon && req.query.distance) {
             }
         }
     }
+
+
+
+>mongorestore -d weather -c data dump/weather/data.bson   
+
+>mongorestore --gzip dump/
