@@ -88,6 +88,35 @@ const getOne = function (req, res) {
         .finally(_ => _sendResponse(res, _response))
 }
 
+const geoSearch = function (req, res) {
+    console.log("geoSearch Controller")
+    const longitude = req.query.longitude;
+    const latitude = req.query.latitude;
+    const minDistance = parseInt(req.query.minDistance);
+    const maxDistance = parseInt(req.query.maxDistance);
+    const response = {
+        status: 200,
+        data: ""
+    }
+    Airbnb.find({
+        "address.location.coordinates": {
+            $near: {
+                $geometry: { type: "Point", coordinates: [latitude, longitude] },
+                $minDistance: minDistance,
+                $maxDistance: maxDistance
+
+            }
+        }
+    }).limit(5).exec()
+        .then(airbnb => response.data = airbnb)
+        .catch(error => {
+            console.log(error);
+            response.status = 500;
+            response.data = "Internal Server Error"
+        })
+        .finally(_ => res.status(response.status).json(response.data))
+}
+
 const deleteOne = function (req, res) {
     _response.status = 200;
     console.log("deleteOne controller")
@@ -103,4 +132,5 @@ module.exports = {
     getAll,
     getOne,
     deleteOne,
+    geoSearch,
 }

@@ -1,1 +1,30 @@
-<p>search works!</p>
+<form [formGroup]="searchForm" (ngSubmit)="search(searchForm)">
+    <h1>Search for Airbnb</h1>
+    <div>
+        <label for="longitude">Longitude</label>:
+        <input id="longitude" name="longitude" formControlName="longitude" required>
+    </div>
+    <br />
+    <div>
+        <label for="latitude">Latitude</label>:
+        <input id="latitude" name="latitude" formControlName="latitude" required>
+    </div>
+    <br />
+    <div>
+        <label for="minDistance">Minimum Distance</label>:
+        <input id="minDistance" name="minDistance" formControlName="minDistance" required>
+    </div>
+    <br />
+    <div>
+        <label for="maxDistance">Maximum Distance</label>:
+        <input id="maxDistance" name="maxDistance" formControlName="maxDistance" required>
+    </div>
+    <br />
+    <button type="submit">Search</button>
+</form>
+
+<ul>
+    <li *ngFor="let airbnb of airbnb">
+        {{airbnb.name}} - {{airbnb.price | currency}} - {{airbnb.address.country}}
+    </li>
+</ul>
