@@ -44,6 +44,13 @@ const _setResponseToInternalServerError = function (_response, error) {
 }
 const getAll = function (req, res) {
     console.log("getAll Controller")
+    const _response = {
+        status: 200,
+        data: {
+            totalCount: "",
+            airbnb: ""
+        }
+    }
 
     _getAllValidation(req)
         .then(({ offset, limit }) => { return Airbnb.find().skip(offset).limit(limit).exec() })

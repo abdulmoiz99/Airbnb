@@ -1,0 +1,13 @@
+<!-- Name, house rules, property type, price, cleaning fee, and address -->
+
+<br />
+Name: {{airbnb.name}} <br />
+House Rules: {{airbnb.house_rules}}<br />
+Property Type: {{airbnb.property_type}}<br />
+Price: {{airbnb.price | currency}}<br />
+Cleaning Fee: {{airbnb.cleaning_fee | currency}}<br />
+Address: {{airbnb.address.street}}<br />
+<br />
+
+
+<button (click)=deleteRecord()>Delete</button>

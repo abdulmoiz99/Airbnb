@@ -1,0 +1,9 @@
+<h1>List of Airbnb</h1>
+<ul>
+    <li *ngFor="let airbnb of airbnbResponse.airbnb">
+        <!-- Name - Price - Country -->
+        <a routerLink="/airbnb/{{airbnb._id}}">
+            {{airbnb.name}} - {{airbnb.price | currency}} - {{airbnb.address.country}}
+        </a>
+    </li>
+</ul>
